@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/api/summarize", summarizeRoutes);
-const pdfUploadRoute = require("./routes/pdfUpload");
+const pdfUploadRoute = require("./routes/pdfsummarizeRoute");
 app.use("/api", pdfUploadRoute);
 
 
