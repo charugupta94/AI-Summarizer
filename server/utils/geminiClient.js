@@ -7,8 +7,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const getGeminiSummary = async (text) => {
   const prompt = `
-You are a helpful assistant. Summarize the following text clearly and concisely.
-
+You are a helpful assistant. Create a cheat sheet from the following text. Focus on extracting key concepts, definitions, formulas, and important takeaways in a clear, organized, and concise format. Use bullet points, headings, or numbered lists if necessary for better readability.
 Text:
 """${text}"""
 `;
