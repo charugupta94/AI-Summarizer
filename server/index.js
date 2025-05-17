@@ -7,6 +7,9 @@ const app = express();
 
 app.use(express.json());
 app.use("/api/summarize", summarizeRoutes);
+const pdfUploadRoute = require("./routes/pdfUpload");
+app.use("/api", pdfUploadRoute);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
