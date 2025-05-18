@@ -5,8 +5,11 @@ const { getGeminiSummaryFromPDF } = require("../utils/geminiClient");
 
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/upload", upload.single("pdf"), async (req, res) => {
+
+
+router.post("/upload", authMiddleware, upload.single("pdf"), async (req, res) => {
   try {
     const pdfBuffer = fs.readFileSync(req.file.path);
     const summary = await getGeminiSummaryFromPDF(pdfBuffer);
