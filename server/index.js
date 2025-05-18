@@ -11,10 +11,7 @@ connectDB();
 const authRoutes = require("./routes/authRoute");
 app.use("/api/auth", authRoutes);
 app.use("/api/summarize", summarizeRoutes);
-const pdfUploadRoute = require("./routes/pdfsummarizeRoute");
-app.use("/api", pdfUploadRoute);
-const downloadRoute = require("./routes/pdfdownloadRoute");
-app.use("/api", downloadRoute);
+
 
 
 const PORT = process.env.PORT || 5000;

@@ -14,12 +14,13 @@ const getGeminiSummaryFromPDF = async (pdfBuffer) => {
       },
     },
     {
-      text: "Summarize this PDF and create a cheat sheet from both the text and image content. Include formulas, diagrams (if any), and key points.Return the text in proper format",
+      text: "Summarize this PDF and create a cheat sheet from both the text and image content. Include: -Important formulas - Key diagrams (mention what they represent) - Bullet points of all major concepts Output format: 1. Summary 2. Formulas 3. Diagrams (description) 4. Key Takeaways Return only formatted text output",
     },
   ]);
 
   const response = await result.response;
   return response.text() || "No summary returned.";
 };
+
 
 module.exports = { getGeminiSummaryFromPDF };

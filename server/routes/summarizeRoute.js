@@ -10,23 +10,9 @@ const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/upload",authMiddleware, upload.single("pdf"), async (req, res) => {
-  try {
-    const pdfPath = req.file.path;
-    const dataBuffer = fs.readFileSync(pdfPath);
+const {pdfSummary , downloadSummary} = require("../controllers/summarizationController.js");
 
-    const pdfData = await pdfParse(dataBuffer);
-    const extractedText = pdfData.text;
-
-    const summary = await getGeminiSummary(extractedText);
-
-    fs.unlinkSync(pdfPath);
-
-    res.json({ summary });
-  } catch (error) {
-    console.error("PDF summarization error:", error);
-    res.status(500).json({ error: "Failed to summarize the PDF" });
-  }
-});
+router.post("/uploadpdf", pdfSummary);
+router.post("/download-summary", downloadSummary);
 
 module.exports = router;
