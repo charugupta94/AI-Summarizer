@@ -4,11 +4,14 @@ const summarizeRoutes = require("./routes/summarizeRoute");
 
 dotenv.config();
 const app = express();
+app.use(express.json()); 
 
 app.use(express.json());
 app.use("/api/summarize", summarizeRoutes);
 const pdfUploadRoute = require("./routes/pdfsummarizeRoute");
 app.use("/api", pdfUploadRoute);
+const downloadRoute = require("./routes/pdfdownloadRoute");
+app.use("/api", downloadRoute);
 
 
 const PORT = process.env.PORT || 5000;
