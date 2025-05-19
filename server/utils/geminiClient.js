@@ -14,7 +14,9 @@ const getGeminiSummaryFromPDF = async (pdfBuffer) => {
       },
     },
     {
-      text: "Summarize this PDF and create a cheat sheet from both the text and image content. Include: -Important formulas - Key diagrams (mention what they represent) - Bullet points of all major concepts Output format: 1. Summary 2. Formulas 3. Diagrams (description) 4. Key Takeaways Return only formatted text output",
+      text: `
+      Generate a comprehensive and visually structured cheat sheet from the provided PDF document, ensuring clarity and engagement in the summary.Instructions: 1.**Summary** Provide a concise overview of the main themes and objectives of the document, highlighting key points.2.**Formulas** Include any relevant mathematical or logical formulas, along with brief explanations of their significance or application (e.g., fuzzy matching, Levenshtein distance).3.**Diagrams (Description or Regenerated)** - Describe each diagram's purpose and relevance within the document context.- If feasible, regenerate the diagram or create a simple visual representation based on the original content.- Assign clear and meaningful labels to diagrams (e.g., "Level 0 DFD - Context Diagram").4.**Key Takeaways** - Clearly enumerate major concepts, constraints, assumptions, and user roles using numbered points or dashes for easy readability.Output format: Ensure all information is presented in a clean Markdown-style format without asterisks, maintaining a professional and organized appearance throughout.
+`
     },
   ]);
 

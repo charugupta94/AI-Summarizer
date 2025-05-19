@@ -6,29 +6,7 @@ const path = require("path");
 const { getGeminiSummary, getGeminiSummaryFromPDF } = require("../utils/geminiClient");
 const { saveAsText, saveAsPDF } = require("../utils/saveSummary");
 const upload = multer({ dest: "uploads/" });
-
-// const textSummary = [
-//   authMiddleware,
-//   upload.single("pdf"),
-//   async (req, res) => {
-//     try {
-//         const pdfPath = req.file.path;
-//         const dataBuffer = fs.readFileSync(pdfPath);
-    
-//         const pdfData = await pdfParse(dataBuffer);
-//         const extractedText = pdfData.text;
-    
-//         const summary = await getGeminiSummary(extractedText);
-    
-//         fs.unlinkSync(pdfPath);
-    
-//         res.json({ summary });
-//       } catch (error) {
-//         console.error("PDF summarization error:", error);
-//         res.status(500).json({ error: "Failed to summarize the PDF" });
-//       }
-//   }
-// ];
+const Summary = require("../models/Summary");
 
 
 const pdfSummary = [
@@ -36,6 +14,12 @@ const pdfSummary = [
     try {
         const pdfBuffer = fs.readFileSync(req.file.path);
         const summary = await getGeminiSummaryFromPDF(pdfBuffer);
+
+        const newSummary = new Summary({
+          text: summary,
+          userId: req.user._id 
+        });
+        await newSummary.save();
     
         const wordCount = summary.split(/\s+/).filter(Boolean).length;
         const wordsPerMinute = 200;
@@ -48,7 +32,8 @@ const pdfSummary = [
         res.json({
           summary,
           wordCount,
-          estimatedReadingTime: `${readingTimeInSeconds} sec`
+          estimatedReadingTime: `${readingTimeInSeconds} sec`,
+          summaryId: newSummary._id,
         });
     
       } catch (error) {
