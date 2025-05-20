@@ -1,6 +1,6 @@
 const authMiddleware = require("../middleware/authMiddleware");
-const multer = require("multer");  //it is used to handle file uploads
-const pdfParse = require("pdf-parse"); // it is used to extract the text from pdf
+const multer = require("multer");
+const pdfParse = require("pdf-parse");
 const fs = require("fs");
 const path = require("path");
 const { getGeminiSummary, getGeminiSummaryFromPDF } = require("../utils/geminiClient");
@@ -24,9 +24,6 @@ const pdfSummary = [
         const wordCount = summary.split(/\s+/).filter(Boolean).length;
         const wordsPerMinute = 200;
         const readingTimeInSeconds = Math.ceil((wordCount / wordsPerMinute) * 60);
-        // const minutes = Math.floor(readingTimeInSeconds / 60);
-        // const seconds = readingTimeInSeconds % 60;
-    
         fs.unlinkSync(req.file.path);
     
         res.json({
@@ -63,8 +60,6 @@ const downloadSummary = async(req,res)=>{
   
       res.download(filePath, (err) => {
         if (err) {
-          // console.error("Download error", err);
-          // res.status(500).send("Error downloading the file.");
           console.log("File succesfully downloaded");
           res.status(200).send("File Successfully Downloaded");
         }
