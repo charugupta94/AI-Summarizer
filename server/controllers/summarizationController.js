@@ -40,6 +40,7 @@ const pdfSummary = [
   }
 ];
 
+
 const downloadSummary = async(req,res)=>{
   const { summary, format } = req.body;
   
@@ -51,8 +52,8 @@ const downloadSummary = async(req,res)=>{
   
     try {    let filePath;
       if (format === "pdf") {
-        filePath = saveAsPDF(summary, fileName);
-      } else if (format === "txt") {
+        filePath = await saveAsPDF(summary, fileName);
+      }else if (format === "txt") {
         filePath = saveAsText(summary, fileName);
       } else {
         return res.status(400).json({ error: "Unsupported file format" });
@@ -69,6 +70,5 @@ const downloadSummary = async(req,res)=>{
       res.status(500).json({ error: "Failed to generate download" });
     }
 };
-
 
 module.exports = { pdfSummary , downloadSummary};
