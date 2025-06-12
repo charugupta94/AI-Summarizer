@@ -1,7 +1,12 @@
+import { FileUploadDemo } from "@/component/fileUpload";
 import React from "react";
 
 const page = () => {
-  return <div></div>;
+  return (
+    <div>
+      <FileUploadDemo />
+    </div>
+  );
 };
 
 export default page;
